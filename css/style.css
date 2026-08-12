@@ -83,3 +83,25 @@ h2 {
         grid-template-columns: 1fr;
     }
 }
+#discover-button {
+    margin: 15px 0 5px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1677ff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#discover-button:hover {
+    background-color: #0f5fcc;
+    transform: translateY(-2px);
+}
+
+#discover-button:focus {
+    outline: 3px solid rgba(22, 119, 255, 0.35);
+    outline-offset: 3px;
+}

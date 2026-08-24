@@ -64,7 +64,45 @@ a {
 .navigation-links a:hover {
     color: #1677ff;
 }
+.menu-button {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 9px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+}
 
+.menu-button span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 5px 0;
+    border-radius: 2px;
+    background-color: #081b33;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.menu-button:focus {
+    outline: 3px solid rgba(22, 119, 255, 0.35);
+    outline-offset: 2px;
+}
+
+.menu-button.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-button.is-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
 .hero {
     min-height: calc(100vh - 72px);
     display: flex;
@@ -343,16 +381,49 @@ a {
 
 @media (max-width: 650px) {
     .navigation {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-        padding: 18px 0;
+        position: relative;
+        min-height: 64px;
+    }
+
+    .menu-button {
+        display: block;
     }
 
     .navigation-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        z-index: 200;
         width: 100%;
-        gap: 16px;
-        overflow-x: auto;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 12px;
+        overflow: visible;
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 15px 30px rgba(8, 27, 51, 0.12);
+    }
+
+    .navigation-links.is-open {
+        display: flex;
+    }
+
+    .navigation-links li {
+        width: 100%;
+    }
+
+    .navigation-links a {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+    }
+
+    .navigation-links a:hover {
+        background-color: #eef5ff;
     }
 
     .hero {

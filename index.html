@@ -143,7 +143,6 @@
                 </div>
             </div>
         </section>
-
         <section class="section" id="projects">
             <div class="section-container">
                 <p class="section-label">Featured Work</p>
@@ -198,19 +197,94 @@
                 </div>
             </div>
         </section>
-
         <section class="contact-section" id="contact">
-            <div class="section-container contact-layout">
-                <div>
-                    <p class="section-label light-label">Contact</p>
-                    <h2>Let’s create something meaningful.</h2>
+    <div class="section-container">
+        <div class="contact-heading">
+            <p class="section-label light-label">Contact</p>
+
+            <h2>Let’s create something meaningful.</h2>
+
+            <p>
+                Have a creative-media, AI, digital-product, or database
+                project? Complete the form below to start a conversation.
+            </p>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Full name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        autocomplete="name"
+                    >
+
+                    <small class="error-message" id="name-error"></small>
                 </div>
 
-                <a class="contact-button" href="mailto:gideontrust9@gmail.com">
-                    gideontrust9@gmail.com
-                </a>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                    >
+
+                    <small class="error-message" id="email-error"></small>
+                </div>
             </div>
-        </section>
+
+            <div class="form-group">
+                <label for="interest">Area of interest</label>
+
+                <select id="interest" name="interest">
+                    <option value="">Select an area</option>
+                    <option value="creative-media">Creative media</option>
+                    <option value="artificial-intelligence">
+                        Artificial intelligence
+                    </option>
+                    <option value="oracle-database">
+                        Oracle database services
+                    </option>
+                    <option value="digital-product">
+                        Digital product development
+                    </option>
+                </select>
+
+                <small class="error-message" id="interest-error"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Project message</label>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    placeholder="Briefly describe your project or enquiry."
+                ></textarea>
+
+                <small class="error-message" id="message-error"></small>
+            </div>
+
+            <button class="submit-button" type="submit">
+                Send enquiry
+            </button>
+
+            <p
+                class="form-status"
+                id="form-status"
+                role="status"
+                aria-live="polite"
+            ></p>
+        </form>
+    </div>
+</section>
     </main>
 
     <footer class="site-footer">

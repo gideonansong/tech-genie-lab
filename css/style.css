@@ -346,6 +346,107 @@ a {
     color: #ffffff;
 }
 
+.contact-heading {
+    max-width: 720px;
+    margin-bottom: 45px;
+}
+
+.contact-heading h2 {
+    margin-bottom: 20px;
+}
+
+.contact-heading > p:last-child {
+    color: #c7d5e5;
+    font-size: 18px;
+}
+
+.contact-form {
+    max-width: 850px;
+    padding: 40px;
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #081b33;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #c9d4e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #1f2937;
+    font: inherit;
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1677ff;
+    outline: 3px solid rgba(22, 119, 255, 0.16);
+}
+
+.form-group .input-error {
+    border-color: #c62828;
+}
+
+.error-message {
+    display: block;
+    min-height: 20px;
+    margin-top: 6px;
+    color: #c62828;
+    font-size: 14px;
+}
+
+.submit-button {
+    min-height: 52px;
+    padding: 13px 26px;
+    border: 0;
+    border-radius: 8px;
+    background-color: #1677ff;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0f5fcc;
+}
+
+.submit-button:focus {
+    outline: 3px solid rgba(22, 119, 255, 0.4);
+    outline-offset: 3px;
+}
+
+.form-status {
+    min-height: 24px;
+    margin: 20px 0 0;
+    color: #16733c;
+    font-weight: bold;
+}
+
 .site-footer {
     min-height: 90px;
     display: flex;
@@ -380,6 +481,14 @@ a {
 }
 
 @media (max-width: 650px) {
+    .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+.contact-form {
+    padding: 25px;
+}
     .navigation {
         position: relative;
         min-height: 64px;

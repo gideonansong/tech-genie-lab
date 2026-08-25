@@ -69,7 +69,7 @@ function emailIsValid(email) {
     return email.includes("@") && email.includes(".");
 }
 
-contactForm.addEventListener("submit", function (event) {
+contactForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     let formIsValid = true;
@@ -107,10 +107,43 @@ contactForm.addEventListener("submit", function (event) {
         formIsValid = false;
     }
 
-    if (formIsValid) {
-        formStatus.textContent =
-            "Your enquiry passed validation successfully.";
+    if (!formIsValid) {
+        return;
+    }
 
+    const contactData = {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        interest: interestInput.value,
+        message: messageInput.value.trim()
+    };
+
+    formStatus.textContent = "Sending your enquiry...";
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/contact",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(contactData)
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message);
+        }
+
+        formStatus.textContent = result.message;
         contactForm.reset();
+    } catch (error) {
+        formStatus.textContent =
+            "The enquiry could not be sent. Make sure the Flask server is running.";
+
+        console.error(error);
     }
 });

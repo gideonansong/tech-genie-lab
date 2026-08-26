@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard | Tech Genie Lab</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <header class="admin-header">
+        <div>
+            <p class="eyebrow">Tech Genie Creative & Data Lab</p>
+            <h1>Administration Dashboard</h1>
+        </div>
+
+        <a href="index.html">Return to website</a>
+    </header>
+
+    <main class="dashboard">
+        <section class="summary-grid">
+            <article class="summary-card">
+                <p>Total enquiries</p>
+                <strong id="contact-count">0</strong>
+            </article>
+
+            <article class="summary-card">
+                <p>Backend status</p>
+                <strong id="backend-status">Checking...</strong>
+            </article>
+        </section>
+
+        <section class="enquiry-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Contact management</p>
+                    <h2>Submitted enquiries</h2>
+                </div>
+
+                <button type="button" id="refresh-button">
+                    Refresh records
+                </button>
+            </div>
+
+            <p class="dashboard-message" id="dashboard-message"></p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Interest</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="contact-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -135,6 +135,36 @@ def contact_count():
         }
     )
 
+@app.route("/api/contacts")
+def get_contacts():
+    with sqlite3.connect(DATABASE_PATH) as connection:
+        connection.row_factory = sqlite3.Row
+
+        contacts = connection.execute(
+            """
+            SELECT
+                id,
+                name,
+                email,
+                interest,
+                message,
+                created_at
+            FROM contacts
+            ORDER BY created_at DESC
+            """
+        ).fetchall()
+
+    contact_list = []
+
+    for contact in contacts:
+        contact_list.append(dict(contact))
+
+    return jsonify(
+        {
+            "contacts": contact_list,
+            "total": len(contact_list)
+        }
+    )
 
 if __name__ == "__main__":
     initialize_database()

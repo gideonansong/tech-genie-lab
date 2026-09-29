@@ -25,16 +25,39 @@
 
     <main class="dashboard">
         <section class="summary-grid">
-            <article class="summary-card">
-                <p>Total enquiries</p>
-                <strong id="contact-count">0</strong>
-            </article>
+    <article class="summary-card">
+        <p>Total enquiries</p>
+        <strong id="contact-count">0</strong>
+    </article>
 
-            <article class="summary-card">
-                <p>Backend status</p>
-                <strong id="backend-status">Checking...</strong>
-            </article>
-        </section>
+    <article class="summary-card">
+        <p>Most requested service</p>
+        <strong
+            class="summary-text"
+            id="most-requested"
+        >
+            No data
+        </strong>
+    </article>
+
+    <article class="summary-card">
+        <p>Backend status</p>
+        <strong id="backend-status">Checking...</strong>
+    </article>
+</section>
+
+<section class="analytics-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Database analytics</p>
+            <h2>Enquiries by area of interest</h2>
+        </div>
+    </div>
+
+    <div class="bar-chart" id="interest-chart">
+        <p>Analytics will appear here.</p>
+    </div>
+</section>
 
         <section class="enquiry-section">
             <div class="section-heading">

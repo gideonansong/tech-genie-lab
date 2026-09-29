@@ -165,6 +165,46 @@ def get_contacts():
             "total": len(contact_list)
         }
     )
+@app.route("/api/analytics")
+def get_analytics():
+    with sqlite3.connect(DATABASE_PATH) as connection:
+        total_result = connection.execute(
+            "SELECT COUNT(*) FROM contacts"
+        ).fetchone()
+
+        interest_results = connection.execute(
+            """
+            SELECT
+                interest,
+                COUNT(*) AS total
+            FROM contacts
+            GROUP BY interest
+            ORDER BY total DESC
+            """
+        ).fetchall()
+
+    analytics = []
+
+    for interest, total in interest_results:
+        analytics.append(
+            {
+                "interest": interest,
+                "total": total
+            }
+        )
+
+    most_requested = None
+
+    if analytics:
+        most_requested = analytics[0]["interest"]
+
+    return jsonify(
+        {
+            "total_contacts": total_result[0],
+            "most_requested": most_requested,
+            "by_interest": analytics
+        }
+    )
 
 if __name__ == "__main__":
     initialize_database()

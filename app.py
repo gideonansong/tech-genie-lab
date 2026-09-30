@@ -1,6 +1,7 @@
 import os
 import sqlite3
 
+from werkzeug.security import check_password_hash
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -254,12 +255,13 @@ def admin_login():
     password = login_data.get("password", "")
 
     correct_username = os.getenv("ADMIN_USERNAME")
-    correct_password = os.getenv("ADMIN_PASSWORD")
+    password_hash = os.getenv("ADMIN_PASSWORD_HASH")
 
     if (
-        username != correct_username
-        or password != correct_password
-    ):
+    username != correct_username
+    or not password_hash
+    or not check_password_hash(password_hash, password)
+):
         return jsonify(
             {
                 "status": "error",

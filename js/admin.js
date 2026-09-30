@@ -104,8 +104,11 @@ function displayAnalytics(analytics) {
 
 async function loadAnalytics() {
     const response = await fetch(
-        "http://127.0.0.1:5000/api/analytics"
-    );
+    "http://127.0.0.1:5000/api/analytics",
+    {
+        credentials: "include"
+    }
+);
 
     if (!response.ok) {
         throw new Error("Analytics could not be loaded.");
@@ -124,8 +127,11 @@ async function loadContacts() {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:5000/api/contacts"
-        );
+    "http://127.0.0.1:5000/api/contacts",
+    {
+        credentials: "include"
+    }
+);
 
         if (!response.ok) {
             throw new Error("The backend returned an error.");
@@ -150,7 +156,60 @@ async function loadContacts() {
     }
 }
 
+async function checkAdminSession() {
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/admin/status",
+            {
+                credentials: "include"
+            }
+        );
 
+        const result = await response.json();
+
+        if (!result.logged_in) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        loadContacts();
+    } catch (error) {
+        dashboardMessage.textContent =
+            "The login status could not be checked.";
+
+        backendStatus.textContent = "Offline";
+        console.error(error);
+    }
+}
+
+async function logoutAdmin() {
+    logoutButton.disabled = true;
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/admin/logout",
+            {
+                method: "POST",
+                credentials: "include"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Logout was unsuccessful.");
+        }
+
+        window.location.href = "login.html";
+    } catch (error) {
+        dashboardMessage.textContent =
+            "You could not be logged out. Please try again.";
+
+        console.error(error);
+        logoutButton.disabled = false;
+    }
+}
+
+logoutButton.addEventListener("click", logoutAdmin);
 refreshButton.addEventListener("click", loadContacts);
 
-loadContacts();
+
+checkAdminSession();

@@ -29,7 +29,8 @@ a {
 }
 
 .admin-header a,
-#refresh-button {
+#refresh-button,
+#logout-button {
     padding: 12px 18px;
     border: 0;
     border-radius: 7px;
@@ -183,6 +184,16 @@ tbody tr:hover {
     font-weight: bold;
     text-align: right;
 }
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#logout-button {
+    border: 1px solid #ffffff;
+    background-color: transparent;
+}
 
 @media (max-width: 700px) {
     .admin-header,
@@ -191,6 +202,17 @@ tbody tr:hover {
         flex-direction: column;
     }
     
+   .admin-actions {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+}
+
+.admin-actions a,
+#logout-button {
+    text-align: center;
+}
+ 
 .bar-item {
     grid-template-columns: 1fr;
     gap: 7px;

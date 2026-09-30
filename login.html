@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Administrator Login | Tech Genie Lab</title>
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <main class="login-page">
+        <section class="login-card">
+            <p class="eyebrow">
+                Tech Genie Creative & Data Lab
+            </p>
+
+            <h1>Administrator Login</h1>
+
+            <p class="login-description">
+                Enter your administrator details to open the dashboard.
+            </p>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" id="login-button">
+                    Log in
+                </button>
+
+                <p id="login-message" class="login-message"></p>
+            </form>
+
+            <a class="return-link" href="index.html">
+                Return to website
+            </a>
+        </section>
+    </main>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

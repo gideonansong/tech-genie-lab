@@ -1,11 +1,20 @@
 import os
 import sqlite3
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_cors import CORS
-
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
-CORS(app)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+CORS(
+    app,
+    supports_credentials=True,
+    origins=[
+        "http://127.0.0.1:3000",
+        "http://localhost:3000"
+    ]
+)
 
 os.makedirs(app.instance_path, exist_ok=True)
 
@@ -135,8 +144,20 @@ def contact_count():
         }
     )
 
+def admin_is_logged_in():
+    return session.get("admin_logged_in", False)
+
+
 @app.route("/api/contacts")
 def get_contacts():
+    if not admin_is_logged_in():
+        return jsonify(
+            {
+                "status": "error",
+                "message": "Administrator login required."
+            }
+        ), 401
+
     with sqlite3.connect(DATABASE_PATH) as connection:
         connection.row_factory = sqlite3.Row
 
@@ -165,8 +186,18 @@ def get_contacts():
             "total": len(contact_list)
         }
     )
+
+
 @app.route("/api/analytics")
 def get_analytics():
+    if not admin_is_logged_in():
+        return jsonify(
+            {
+                "status": "error",
+                "message": "Administrator login required."
+            }
+        ), 401
+
     with sqlite3.connect(DATABASE_PATH) as connection:
         total_result = connection.execute(
             "SELECT COUNT(*) FROM contacts"
@@ -205,6 +236,70 @@ def get_analytics():
             "by_interest": analytics
         }
     )
+
+
+@app.route("/api/admin/login", methods=["POST"])
+def admin_login():
+    login_data = request.get_json()
+
+    if not login_data:
+        return jsonify(
+            {
+                "status": "error",
+                "message": "No login information was received."
+            }
+        ), 400
+
+    username = login_data.get("username", "").strip()
+    password = login_data.get("password", "")
+
+    correct_username = os.getenv("ADMIN_USERNAME")
+    correct_password = os.getenv("ADMIN_PASSWORD")
+
+    if (
+        username != correct_username
+        or password != correct_password
+    ):
+        return jsonify(
+            {
+                "status": "error",
+                "message": "Incorrect username or password."
+            }
+        ), 401
+
+    session["admin_logged_in"] = True
+
+    return jsonify(
+        {
+            "status": "success",
+            "message": "Login successful."
+        }
+    )
+
+
+@app.route("/api/admin/status")
+def admin_status():
+    return jsonify(
+        {
+            "logged_in": session.get(
+                "admin_logged_in",
+                False
+            )
+        }
+    )
+
+
+@app.route("/api/admin/logout", methods=["POST"])
+def admin_logout():
+    session.clear()
+
+    return jsonify(
+        {
+            "status": "success",
+            "message": "You have been logged out."
+        }
+    )
+
 
 if __name__ == "__main__":
     initialize_database()
